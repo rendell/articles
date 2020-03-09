@@ -36,3 +36,33 @@ dygraph(Load_factor_US, main="Load factor U.S.",
 ylab="Index")%>% 
   dyRangeSelector(dateWindow = c("2018-01-01", "2020-01-01")) 
 ```
+
+```{r, echo=FALSE}
+dygraph(WTI.oil, main="WTI.oil", 
+ylab="Index")%>% 
+  dyRangeSelector(dateWindow = c("2018-01-01", "2020-01-01"))  
+```
+
+```{r, echo=FALSE}
+dygraph(US.cruise.tour.bookings, main="US.cruise.tour.bookings", 
+ylab="Index")%>% 
+  dyRangeSelector(dateWindow = c("2018-01-01", "2020-01-01")) 
+```
+
+```{r, message=FALSE, error=FALSE, warning=FALSE, echo=FALSE}
+library(tsibbledata)
+library(tidyverse)
+library(tsibble)
+
+global_economy %>%
+filter(Country=="Aruba")%>%
+select(Year,GDP)%>%
+dygraph(main="Aruba Gross Domestic Product (GDP)", ylab = "GDP")%>%
+dyRangeSelector(dateWindow = c("1985", "2017"))%>%
+dyEvent("2008", "Suspension oil refinery", labelLoc = "bottom") %>% 
+dyShading(from = "2008", to = "2010", color = "#FFE6E6")%>%
+dyEvent("2007", "Global financial crisis", labelLoc = "bottom") %>% 
+dyEvent("2006", "Nathalee Holloway", labelLoc = "bottom") %>% 
+dyEvent("1986", "Lago oil refinery closes", labelLoc = "bottom")%>% 
+dyEvent("2012", "Suspension oil refinery", labelLoc = "bottom")
+```
