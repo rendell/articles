@@ -1,0 +1,38 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+
+```{r, echo=FALSE}
+library(quantmod) 
+library(dygraphs) 
+```
+
+```{r, echo=FALSE}
+# Load Factor for U.S. Air Carrier Domestic and International, Scheduled Passenger Flights(LOADFACTORD11)
+
+getSymbols('LOADFACTORD11',src='FRED') 
+Load_factor_US <-LOADFACTORD11 
+rm(LOADFACTORD11) 
+
+# Crude Oil Prices: West Texas Intermediate (WTI) - Cushing, Oklahoma (DCOILWTICO)
+getSymbols('DCOILWTICO',src='FRED') 
+WTI.oil <-DCOILWTICO 
+rm(DCOILWTICO) 
+
+#  Producer Price Index by Industry: Travel Agencies: Cruise and Tour Bookings (PCU561510561510222)
+getSymbols('PCU561510561510222',src='FRED') 
+US.cruise.tour.bookings <-PCU561510561510222 
+rm(PCU561510561510222) 
+```
+
+
+#To create a nice interactive time series graph with a range 
+
+```{r, echo=FALSE}
+dygraph(Load_factor_US, main="Load factor U.S.", 
+ylab="Index")%>% 
+  dyRangeSelector(dateWindow = c("2018-01-01", "2020-01-01")) 
+```
